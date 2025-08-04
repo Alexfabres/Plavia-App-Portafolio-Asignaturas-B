@@ -48,7 +48,7 @@ def generate():
 
 if __name__ == "__main__":
     generate()
-"; 
+";
 const API_KEY = "curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent" \
   -H 'Content-Type: application/json' \
   -H 'X-goog-api-key: GEMINI_API_KEY' \
@@ -63,7 +63,7 @@ const API_KEY = "curl "https://generativelanguage.googleapis.com/v1beta/models/g
         ]
       }
     ]
-  }'";   
+  }'";
 
 // Función para llamar a la API de AI Studio
 aiForm.addEventListener('submit', async (e) => {
