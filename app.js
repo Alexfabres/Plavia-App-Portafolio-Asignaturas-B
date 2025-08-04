@@ -5,8 +5,65 @@ const userPromptInput = document.getElementById('user-prompt');
 const aiResponseEl = document.getElementById('ai-response');
 
 // Reemplaza estas variables con la información de tu API
-const API_ENDPOINT = "TU_URL_DE_API_DE_AI_STUDIO"; // Pega aquí la URL del endpoint
-const API_KEY = "TU_CLAVE_DE_API_DE_AI_STUDIO";   // Pega aquí la clave de API
+const API_ENDPOINT = "# To run this code you need to install the following dependencies:
+# pip install google-genai
+
+import base64
+import os
+from google import genai
+from google.genai import types
+
+
+def generate():
+    client = genai.Client(
+        api_key=os.environ.get("GEMINI_API_KEY"),
+    )
+
+    model = "gemini-2.5-flash-lite"
+    contents = [
+        types.Content(
+            role="user",
+            parts=[
+                types.Part.from_text(text="""INSERT_INPUT_HERE"""),
+            ],
+        ),
+    ]
+    tools = [
+        types.Tool(googleSearch=types.GoogleSearch(
+        )),
+    ]
+    generate_content_config = types.GenerateContentConfig(
+        thinking_config = types.ThinkingConfig(
+            thinking_budget=0,
+        ),
+        tools=tools,
+    )
+
+    for chunk in client.models.generate_content_stream(
+        model=model,
+        contents=contents,
+        config=generate_content_config,
+    ):
+        print(chunk.text, end="")
+
+if __name__ == "__main__":
+    generate()
+"; // Pega aquí la URL del endpoint
+const API_KEY = "curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent" \
+  -H 'Content-Type: application/json' \
+  -H 'X-goog-api-key: GEMINI_API_KEY' \
+  -X POST \
+  -d '{
+    "contents": [
+      {
+        "parts": [
+          {
+            "text": "Explain how AI works in a few words"
+          }
+        ]
+      }
+    ]
+  }'";   // Pega aquí la clave de API
 
 // Función para llamar a la API de AI Studio
 aiForm.addEventListener('submit', async (e) => {
@@ -21,9 +78,17 @@ aiForm.addEventListener('submit', async (e) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                // Aquí se envía el prompt completo con los documentos y la pregunta del usuario.
+                // Asegúrate de que este prompt coincida con el que creaste en AI Studio.
                 prompt: { text: userPrompt }
             })
         });
+
+        // Manejar errores de la API
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Error de la API: ${response.status} ${response.statusText} - ${errorText}`);
+        }
 
         const data = await response.json();
 
@@ -35,6 +100,6 @@ aiForm.addEventListener('submit', async (e) => {
 
     } catch (error) {
         console.error("Error al generar respuesta:", error);
-        aiResponseEl.innerText = 'Ocurrió un error. Inténtalo de nuevo.';
+        aiResponseEl.innerText = `Ocurrió un error. Detalles: ${error.message}. Inténtalo de nuevo.`;
     }
 });
