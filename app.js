@@ -48,7 +48,7 @@ def generate():
 
 if __name__ == "__main__":
     generate()
-"; // Pega aquí la URL del endpoint
+"; 
 const API_KEY = "curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent" \
   -H 'Content-Type: application/json' \
   -H 'X-goog-api-key: GEMINI_API_KEY' \
@@ -63,7 +63,7 @@ const API_KEY = "curl "https://generativelanguage.googleapis.com/v1beta/models/g
         ]
       }
     ]
-  }'";   // Pega aquí la clave de API
+  }'";   
 
 // Función para llamar a la API de AI Studio
 aiForm.addEventListener('submit', async (e) => {
@@ -78,13 +78,10 @@ aiForm.addEventListener('submit', async (e) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                // Aquí se envía el prompt completo con los documentos y la pregunta del usuario.
-                // Asegúrate de que este prompt coincida con el que creaste en AI Studio.
                 prompt: { text: userPrompt }
             })
         });
 
-        // Manejar errores de la API
         if (!response.ok) {
             const errorText = await response.text();
             throw new Error(`Error de la API: ${response.status} ${response.statusText} - ${errorText}`);
