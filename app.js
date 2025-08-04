@@ -1,4 +1,4 @@
-// app.js
+// aplicacion.js
 // Referencias a elementos del DOM
 const aiForm = document.getElementById('ai-form');
 const userPromptInput = document.getElementById('user-prompt');
