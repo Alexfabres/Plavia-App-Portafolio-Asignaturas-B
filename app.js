@@ -5,10 +5,9 @@ const userPromptInput = document.getElementById('user-prompt');
 const aiResponseEl = document.getElementById('ai-response');
 
 // -----------------------------------------------------------------------------------
-// PASO CLAVE: Reemplaza estas dos líneas con la información de tu API
+// PASO CLAVE: Reemplaza SOLO esta línea con la información de tu API
 // -----------------------------------------------------------------------------------
-const API_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
-const API_KEY = "# To run this code you need to install the following dependencies:
+const API_ENDPOINT = "# To run this code you need to install the following dependencies:
 # pip install google-genai
 
 import base64
@@ -51,8 +50,8 @@ def generate():
 
 if __name__ == "__main__":
     generate()
-";   
-// Reemplaza "curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent" \
+";
+const API_KEY = "curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent" \
   -H 'Content-Type: application/json' \
   -H 'X-goog-api-key: GEMINI_API_KEY' \
   -X POST \
@@ -66,8 +65,8 @@ if __name__ == "__main__":
         ]
       }
     ]
-  }'" con tu clave de API real (una cadena de letras y números)
-// Por seguridad, asegúrate de que no haya comillas extra o caracteres incorrectos.
+  }'";
+// Reemplaza el texto "TU_CLAVE_DE_API_DE_AI_STUDIO" (incluyendo las comillas) por tu clave de API real.
 // -----------------------------------------------------------------------------------
 
 
